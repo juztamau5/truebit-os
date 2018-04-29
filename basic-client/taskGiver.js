@@ -100,7 +100,7 @@ module.exports = {
 									solution["data"] = web3.utils.hexToBytes(taskData.taskData)
 
 									if (solution.finalized) {
-										fs.writeFile("solutions/" + taskID + ".json", JSON.stringify(solution), (err) => { if (err) console.log(err)})
+										fs.writeFile("solutions/" + taskID + "_rps.json", JSON.stringify(solution), (err) => { if (err) console.log(err)})
 										await incentiveLayer.unbondDeposit(taskID, {from: account})
 									}
 

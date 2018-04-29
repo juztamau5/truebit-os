@@ -16,9 +16,9 @@ function setup(httpProvider) {
 	return (async () => {
 		ilConfig = JSON.parse(fs.readFileSync(__dirname + "/incentive-layer/export/development.json"))
 		incentiveLayer = await contract(httpProvider, ilConfig['TaskExchange'])
-		drlConfig = JSON.parse(fs.readFileSync(__dirname + "/dispute-resolution-layer/export/development.json"))
-		disputeResolutionLayer = await contract(httpProvider, drlConfig['BasicVerificationGame'])
-		computationLayer = await contract(httpProvider, drlConfig['SimpleAdderVM'])
+		drlConfig = JSON.parse(fs.readFileSync(__dirname + "/dispute-resolution-layer/export/development_rps.json"))
+		disputeResolutionLayer = await contract(httpProvider, drlConfig['RepeatedGameVerificationGame'])
+		computationLayer = await contract(httpProvider, drlConfig['RpsVM'])
 		return [incentiveLayer, disputeResolutionLayer, computationLayer]
 	})()
 }
@@ -55,7 +55,7 @@ module.exports = {
 	
 								let output = await computationLayer.runSteps.call(program, taskData.numSteps)
 	
-								let solution = output[0][1]
+								let solution = output[0]
 	
 								tx = await incentiveLayer.commitSolution(taskID, solution, {from: account})
 	

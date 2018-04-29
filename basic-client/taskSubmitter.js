@@ -4,7 +4,7 @@ const contract = require('./contractHelper')
 
 module.exports = (web3) => {
     const ilConfig = JSON.parse(fs.readFileSync(__dirname + "/incentive-layer/export/development.json"))
-    const drlConfig = JSON.parse(fs.readFileSync(__dirname + "/dispute-resolution-layer/export/development.json"))
+    const drlConfig = JSON.parse(fs.readFileSync(__dirname + "/dispute-resolution-layer/export/development_rps.json"))
 
     function setup(httpProvider) {
         return (async () => {
@@ -28,7 +28,7 @@ module.exports = (web3) => {
                 taskData,
                 task.intervals,
                 task.data.length,
-                drlConfig["BasicVerificationGame"].address,
+                drlConfig["RepeatedGameVerificationGame"].address,
                 {
                     from: task.from, 
                     value: task.reward,
